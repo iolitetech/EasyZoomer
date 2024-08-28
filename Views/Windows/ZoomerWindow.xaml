@@ -1,0 +1,45 @@
+﻿<Window
+    x:Class="EasyZoomer.Views.Windows.ZoomerWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:EasyZoomer"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="Zoomer"
+    Width="800"
+    Height="450"
+    AllowsTransparency="True"
+    Topmost="True"
+    WindowStartupLocation="CenterScreen"
+    WindowState="Maximized"
+    WindowStyle="None"
+    mc:Ignorable="d">
+    <Grid>
+        <Image
+            x:Name="CapturedImage"
+            RenderOptions.BitmapScalingMode="HighQuality"
+            Stretch="None" />
+        <Canvas
+            x:Name="OverlayCanvas"
+            Background="Transparent"
+            IsHitTestVisible="False">
+            <!--  Black overlay with exclusion circle  -->
+            <Rectangle
+                x:Name="OverlayRectangle"
+                Fill="Black"
+                Opacity="0.5" />
+
+            <!--  Circle around cursor (will be hidden)  -->
+            <Ellipse
+                x:Name="CursorHighlight"
+                Canvas.Left="0"
+                Canvas.Top="0"
+                Width="100"
+                Height="100"
+                Fill="Transparent"
+                Stroke="Transparent"
+                StrokeThickness="2"
+                Visibility="Visible" />
+        </Canvas>
+    </Grid>
+</Window>

@@ -1,0 +1,472 @@
+﻿<Page
+    x:Class="EasyZoomer.Views.Pages.DashboardPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:EasyZoomer.Views.Pages"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+    Title="DashboardPage"
+    d:DataContext="{d:DesignInstance local:DashboardPage,
+                                     IsDesignTimeCreatable=False}"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
+    ui:Design.Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+    Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+    mc:Ignorable="d">
+
+
+    <Border Padding="10">
+        <StackPanel>
+            <Grid
+                x:Name="HeaderLayout"
+                Margin="0,0,0,20"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Center">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <ui:Image
+                    Grid.Column="0"
+                    Width="150"
+                    Height="100"
+                    CornerRadius="10"
+                    Source="pack://application:,,,/Assets/window.png"
+                    Stretch="Fill" />
+                <ui:TextBlock
+                    Grid.Column="1"
+                    Margin="10,0,0,0"
+                    VerticalAlignment="Top"
+                    FontTypography="Body"
+                    Foreground="{ui:ThemeResource TextFillColorSecondaryBrush}"
+                    Text="EasyZoomer offers a seamless zoom and pan experience for your entire screen. With intuitive controls and real-time adjustments, you can magnify and navigate with precision. Enjoy a sleek, user-friendly interface that makes focusing on details effortless."
+                    TextWrapping="Wrap" />
+            </Grid>
+
+            <Button x:Name="zoomerOpenButton" Click="zoomerOpenButton_Click">Open Zoomer</Button>
+            <ui:TextBlock
+                Margin="0,10,0,5"
+                FontTypography="BodyStrong"
+                Text="Appearance" />
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <ui:CardExpander Grid.Column="0" Icon="{ui:SymbolIcon ColorBackground20}">
+                    <ui:CardExpander.Header>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <ui:TextBlock
+                                Grid.Row="0"
+                                Grid.Column="0"
+                                FontSize="16"
+                                FontTypography="BodyStrong"
+                                Text="Overlay Color" />
+                            <ui:TextBlock
+                                Grid.Row="1"
+                                Grid.Column="0"
+                                FontSize="12"
+                                Foreground="{ui:ThemeResource TextFillColorSecondaryBrush}"
+                                Text="The zoomer overlay color" />
+                            <ui:Button
+                                Grid.Row="0"
+                                Grid.RowSpan="2"
+                                Grid.Column="1"
+                                Width="40"
+                                Height="30"
+                                Margin="0,0,16,0"
+                                Background="{Binding ViewModel.OverlayColorBrush, Mode=TwoWay}" />
+                        </Grid>
+                    </ui:CardExpander.Header>
+                    <StackPanel Margin="24,0.5,24,0">
+                        <ui:TextBox
+                            Margin="0,0,0,0"
+                            PlaceholderText="Hex Color"
+                            Text="{Binding ViewModel.OverlayColorHex, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
+                        <Slider
+                            IsSnapToTickEnabled="True"
+                            LargeChange="0.1"
+                            Maximum="1"
+                            Minimum="0"
+                            SmallChange="0.01"
+                            TickFrequency="0.01"
+                            Value="{Binding ViewModel.OverlayOpacity, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
+                    </StackPanel>
+                </ui:CardExpander>
+            </Grid>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <ui:CardExpander Grid.Column="0" Icon="{ui:SymbolIcon BorderNone24}">
+                    <ui:CardExpander.Header>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <ui:TextBlock
+                                Grid.Row="0"
+                                Grid.Column="0"
+                                FontSize="16"
+                                FontTypography="BodyStrong"
+                                Text="Circle Border" />
+                            <ui:TextBlock
+                                Grid.Row="1"
+                                Grid.Column="0"
+                                FontSize="12"
+                                Foreground="{ui:ThemeResource TextFillColorSecondaryBrush}"
+                                Text="The color for the circle around the cursor" />
+                            <ui:Button
+                                Grid.Row="0"
+                                Grid.RowSpan="2"
+                                Grid.Column="1"
+                                Width="40"
+                                Height="30"
+                                Margin="0,0,16,0"
+                                Background="{Binding ViewModel.BorderColorBrush, Mode=TwoWay}" />
+                        </Grid>
+                    </ui:CardExpander.Header>
+                    <StackPanel Margin="24,0.5,24,0">
+                        <ui:TextBox
+                            Margin="0,0,0,0"
+                            PlaceholderText="Hex Color"
+                            Text="{Binding ViewModel.BorderColorHex, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
+                        <Slider
+                            IsSnapToTickEnabled="True"
+                            LargeChange="0.1"
+                            Maximum="1"
+                            Minimum="0"
+                            SmallChange="0.01"
+                            TickFrequency="0.01"
+                            Value="{Binding ViewModel.BorderColorOpacity, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
+                    </StackPanel>
+                </ui:CardExpander>
+            </Grid>
+            <ui:TextBlock
+                Margin="0,10,0,5"
+                FontTypography="BodyStrong"
+                Text="Adjustments" />
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <ui:CardControl
+                    Margin="4"
+                    Padding="20,10,20,10"
+                    Icon="{ui:SymbolIcon Circle24}">
+                    <ui:CardControl.Header>
+                        <StackPanel>
+                            <ui:TextBlock
+                                Margin="0"
+                                FontTypography="BodyStrong"
+                                Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+                                Text="Scale Factor"
+                                TextWrapping="WrapWithOverflow" />
+                            <ui:TextBlock
+                                Appearance="Secondary"
+                                Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                Text="Scale factor for the cursor's circle"
+                                TextWrapping="WrapWithOverflow" />
+                        </StackPanel>
+                    </ui:CardControl.Header>
+                    <ui:NumberBox
+                        LargeChange="0.5"
+                        Maximum="1000"
+                        Minimum="1"
+                        SmallChange="0.1"
+                        Value="{Binding ViewModel.ZoomScaleFactor, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
+                </ui:CardControl>
+            </Grid>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <ui:CardControl
+                    Margin="4"
+                    Padding="20,10,20,10"
+                    Icon="{ui:SymbolIcon CircleLine24}">
+                    <ui:CardControl.Header>
+                        <StackPanel>
+                            <ui:TextBlock
+                                Margin="0"
+                                FontTypography="BodyStrong"
+                                Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+                                Text="Cursor's Cricle Radius"
+                                TextWrapping="WrapWithOverflow" />
+                            <ui:TextBlock
+                                Appearance="Secondary"
+                                Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                Text="The radius for the circle around the cursor."
+                                TextWrapping="WrapWithOverflow" />
+                        </StackPanel>
+                    </ui:CardControl.Header>
+                    <ui:NumberBox
+                        LargeChange="5"
+                        Maximum="1000"
+                        Minimum="1"
+                        SmallChange="2"
+                        Value="{Binding ViewModel.CircleRadius, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
+                </ui:CardControl>
+            </Grid>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <ui:CardControl
+                    Margin="4"
+                    Padding="20,10,20,10"
+                    Icon="{ui:SymbolIcon AutoFitWidth24}">
+                    <ui:CardControl.Header>
+                        <StackPanel>
+                            <ui:TextBlock
+                                Margin="0"
+                                FontTypography="BodyStrong"
+                                Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+                                Text="Cursor's Border Thickness"
+                                TextWrapping="WrapWithOverflow" />
+                            <ui:TextBlock
+                                Appearance="Secondary"
+                                Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                Text="The thickness for the circle around the cursor."
+                                TextWrapping="WrapWithOverflow" />
+                        </StackPanel>
+                    </ui:CardControl.Header>
+                    <ui:NumberBox
+                        LargeChange="5"
+                        Maximum="1000"
+                        Minimum="1"
+                        SmallChange="2"
+                        Value="{Binding ViewModel.BorderThickness, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
+                </ui:CardControl>
+            </Grid>
+            <!--  Key Bindings  -->
+            <ui:TextBlock
+                Margin="0,10,0,5"
+                FontTypography="BodyStrong"
+                Text="Key Bindings" />
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <ui:CardControl
+                    Margin="4"
+                    Padding="20,10,20,10"
+                    Icon="{ui:SymbolIcon KeyboardMouse16}">
+                    <ui:CardControl.Header>
+                        <StackPanel>
+                            <ui:TextBlock
+                                Margin="0"
+                                FontTypography="BodyStrong"
+                                Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+                                Text="Open the zoomer"
+                                TextWrapping="WrapWithOverflow" />
+                        </StackPanel>
+                    </ui:CardControl.Header>
+                    <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
+                        <ui:Button
+                            Margin="0,0,10,0"
+                            Background="{DynamicResource AccentTextFillColorTertiaryBrush}"
+                            Content="Win"
+                            Foreground="Black" />
+                        <ui:Button
+                            Margin="0,0,10,0"
+                            Background="{DynamicResource AccentTextFillColorTertiaryBrush}"
+                            Content="Shift"
+                            Foreground="Black" />
+                        <ui:Button
+                            Background="{DynamicResource AccentTextFillColorTertiaryBrush}"
+                            Content="o"
+                            Foreground="Black" />
+                    </StackPanel>
+
+                </ui:CardControl>
+            </Grid>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <ui:CardControl
+                    Margin="4"
+                    Padding="20,10,20,10"
+                    Icon="{ui:SymbolIcon KeyboardMouse16}">
+                    <ui:CardControl.Header>
+                        <StackPanel>
+                            <ui:TextBlock
+                                Margin="0"
+                                FontTypography="BodyStrong"
+                                Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+                                Text="Zooming in and out"
+                                TextWrapping="WrapWithOverflow" />
+                        </StackPanel>
+                    </ui:CardControl.Header>
+                    <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
+                        <ui:Button
+                            Margin="0,0,10,0"
+                            Background="{DynamicResource AccentTextFillColorTertiaryBrush}"
+                            Content="Ctrl"
+                            Foreground="Black" />
+                        <ui:Button
+                            Background="{DynamicResource AccentTextFillColorTertiaryBrush}"
+                            Content="Mouse Wheel"
+                            Foreground="Black" />
+                    </StackPanel>
+
+                </ui:CardControl>
+            </Grid>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <ui:CardControl
+                    Margin="4"
+                    Padding="20,10,20,10"
+                    Icon="{ui:SymbolIcon KeyboardMouse16}">
+                    <ui:CardControl.Header>
+                        <StackPanel>
+                            <ui:TextBlock
+                                Margin="0"
+                                FontTypography="BodyStrong"
+                                Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+                                Text="Zooming in and out (Alternative)"
+                                TextWrapping="WrapWithOverflow" />
+                        </StackPanel>
+                    </ui:CardControl.Header>
+                    <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
+                        <ui:Button
+                            Margin="0,0,10,0"
+                            Background="{DynamicResource AccentTextFillColorTertiaryBrush}"
+                            Content="Ctrl"
+                            Foreground="Black" />
+                        <ui:Button
+                            Background="{DynamicResource AccentTextFillColorTertiaryBrush}"
+                            Content="+ or -"
+                            Foreground="Black" />
+                    </StackPanel>
+
+                </ui:CardControl>
+            </Grid>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <ui:CardControl
+                    Margin="4"
+                    Padding="20,10,20,10"
+                    Icon="{ui:SymbolIcon KeyboardMouse16}">
+                    <ui:CardControl.Header>
+                        <StackPanel>
+                            <ui:TextBlock
+                                Margin="0"
+                                FontTypography="BodyStrong"
+                                Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+                                Text="Show, hide the overlay"
+                                TextWrapping="WrapWithOverflow" />
+                        </StackPanel>
+                    </ui:CardControl.Header>
+                    <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
+                        <ui:Button
+                            Margin="0,0,10,0"
+                            Background="{DynamicResource AccentTextFillColorTertiaryBrush}"
+                            Content="Shift"
+                            Foreground="Black" />
+                        <ui:Button
+                            Background="{DynamicResource AccentTextFillColorTertiaryBrush}"
+                            Content="o"
+                            Foreground="Black" />
+                    </StackPanel>
+
+                </ui:CardControl>
+            </Grid>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <ui:CardControl
+                    Margin="4"
+                    Padding="20,10,20,10"
+                    Icon="{ui:SymbolIcon KeyboardMouse16}">
+                    <ui:CardControl.Header>
+                        <StackPanel>
+                            <ui:TextBlock
+                                Margin="0"
+                                FontTypography="BodyStrong"
+                                Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+                                Text="Change the cursor circle size"
+                                TextWrapping="WrapWithOverflow" />
+                        </StackPanel>
+                    </ui:CardControl.Header>
+                    <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
+                        <ui:Button
+                            Margin="0,0,10,0"
+                            Background="{DynamicResource AccentTextFillColorTertiaryBrush}"
+                            Content="Shift"
+                            Foreground="Black" />
+                        <ui:Button
+                            Background="{DynamicResource AccentTextFillColorTertiaryBrush}"
+                            Content="Mouse Wheel"
+                            Foreground="Black" />
+                    </StackPanel>
+
+                </ui:CardControl>
+            </Grid>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <ui:CardControl
+                    Margin="4"
+                    Padding="20,10,20,10"
+                    Icon="{ui:SymbolIcon KeyboardMouse16}">
+                    <ui:CardControl.Header>
+                        <StackPanel>
+                            <ui:TextBlock
+                                Margin="0"
+                                FontTypography="BodyStrong"
+                                Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+                                Text="Reset the zoom."
+                                TextWrapping="WrapWithOverflow" />
+                        </StackPanel>
+                    </ui:CardControl.Header>
+                    <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
+                        <ui:Button
+                            Margin="0,0,10,0"
+                            Background="{DynamicResource AccentTextFillColorTertiaryBrush}"
+                            Content="Ctrl"
+                            Foreground="Black" />
+                        <ui:Button
+                            Background="{DynamicResource AccentTextFillColorTertiaryBrush}"
+                            Content="0"
+                            Foreground="Black" />
+                    </StackPanel>
+
+                </ui:CardControl>
+            </Grid>
+        </StackPanel>
+
+    </Border>
+</Page>
