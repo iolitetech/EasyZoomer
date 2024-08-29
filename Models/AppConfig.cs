@@ -13,6 +13,17 @@ public static class AppConfig
         get => double.TryParse(ConfigurationManager.AppSettings["OverlayOpacity"], out var value) ? value : 0.5;
         set => UpdateAppSetting("OverlayOpacity", value.ToString());
     }
+    public static DateTime LastChecked
+    {
+        get => DateTime.TryParse(ConfigurationManager.AppSettings["LastChecked"], out var value) ? value : DateTime.MinValue;
+        set => UpdateAppSetting("LastChecked", value.ToString("o")); 
+    }
+    public static string LastCheckedMessage
+    {
+        get => ConfigurationManager.AppSettings["LastCheckedMessage"] ?? $"Last Checked {DateTime.Now}";
+        set => UpdateAppSetting("LastCheckedMessage", value);
+    }
+
 
     public static float CircleRadius
     {

@@ -91,6 +91,7 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
             <ui:CardExpander
@@ -115,7 +116,7 @@
                             Grid.Column="0"
                             FontSize="16"
                             FontTypography="BodyStrong"
-                            Text="{Binding ViewModel.AppVersion}" />
+                            Text="{Binding ViewModel.AppVersion, Mode=TwoWay}" />
                         <ui:TextBlock
                             Grid.Row="1"
                             Grid.Column="0"
@@ -133,11 +134,16 @@
                             Grid.Row="2"
                             Grid.ColumnSpan="2"
                             IsIndeterminate="True"
-                            Visibility="{Binding ViewModel.IsProgressVisible}" />
+                            Visibility="{Binding ViewModel.IsProgressVisible, Mode=TwoWay}" />
                     </Grid>
                 </ui:CardExpander.Header>
-                <StackPanel Margin="24,0.5,24,0" />
             </ui:CardExpander>
+            <StackPanel
+                Grid.Row="2"
+                Grid.Column="0"
+                Visibility="{Binding ViewModel.IsUpdateAvailable, Mode=TwoWay}">
+                <ui:Button Content="Update now" />
+            </StackPanel>
         </Grid>
     </StackPanel>
 </Page>

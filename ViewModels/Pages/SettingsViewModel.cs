@@ -12,14 +12,19 @@ namespace EasyZoomer.ViewModels.Pages
     public partial class SettingsViewModel : ObservableObject, INavigationAware
     {
         private bool _isInitialized = false;
+
         private UpdateManager _updateManager;
         private UpdateInfo? _updateInfo;
         private readonly IContentDialogService _contentDialogService;
 
-        private DateTime _lastChecked = DateTime.Now;
+        [ObservableProperty]
+        private DateTime _lastChecked = AppConfig.LastChecked;
 
         [ObservableProperty]
-        private string _lastCheckedMessage;
+        private Visibility _isUpdateAvailable = Visibility.Hidden;
+
+        [ObservableProperty]
+        private string _lastCheckedMessage = AppConfig.LastCheckedMessage;
 
         [ObservableProperty]
         private Visibility _isProgressVisible = Visibility.Hidden;
@@ -59,14 +64,24 @@ namespace EasyZoomer.ViewModels.Pages
                     ContentDialogResult result = await _contentDialogService.ShowSimpleDialogAsync(new()
                     {
                         Title = "EasyZoomer update",
-                        Content = $"New update available EasyZoomer - {release.Version.ToString()}, Do yoy want to update?",
+                        Content = $"New update available EasyZoomer - {release.Version.ToString()}, Do you want to update?",
                         CloseButtonText = "Close",
                         PrimaryButtonText = "Yes",
                         SecondaryButtonText = "No"
                     });
 
-                    if (result == ContentDialogResult.Primary)
-                        await Update();
+                    switch (result)
+                    {
+                        case ContentDialogResult.Primary:
+                            await DownloadUpdate();
+                            InstallUpdate();
+                            break;
+
+                        case ContentDialogResult.Secondary:
+                        case ContentDialogResult.None:
+                            IsUpdateAvailable = Visibility.Visible;
+                            break;
+                    }
                 }
                 else
                 {
@@ -79,10 +94,16 @@ namespace EasyZoomer.ViewModels.Pages
                 }
             }
             IsProgressVisible = Visibility.Hidden;
-            _lastChecked = DateTime.Now;
-            LastCheckedMessage = $"Last Checked {_lastChecked}";
+            LastChecked = DateTime.Now;
+            LastCheckedMessage = $"Last Checked {LastChecked}";
         }
 
+        [RelayCommand]
+        public async Task DownloadAndInstall()
+        {
+            await DownloadUpdate();
+            InstallUpdate();
+        }
         public SettingsViewModel(IContentDialogService dialogService)
         {
             this._contentDialogService = dialogService;
@@ -118,18 +139,35 @@ namespace EasyZoomer.ViewModels.Pages
             return System.Reflection.Assembly.GetExecutingAssembly().GetName().Version?.ToString()
                 ?? String.Empty;
         }
-        public async Task Update()
+
+        public async Task DownloadUpdate()
         {
             if (_updateInfo != null)
             {
                 await _updateManager.DownloadUpdatesAsync(_updateInfo);
-
-                _updateManager.ApplyUpdatesAndRestart(_updateInfo);
+                IsUpdateAvailable = Visibility.Visible;
             }
         }
+        public void InstallUpdate()
+        {
+            if (_updateInfo != null)
+            {
+                _updateManager.ApplyUpdatesAndRestart(_updateInfo);
+                IsUpdateAvailable = Visibility.Hidden;
+            }
+        }
+        
         partial void OnCurrentThemeChanged(ApplicationTheme value)
         {
             ApplicationThemeManager.Apply(value);
+        }
+        partial void OnLastCheckedMessageChanged(string value)
+        {
+            AppConfig.LastCheckedMessage = value;
+        }
+        partial void OnLastCheckedChanged(DateTime value)
+        {
+            AppConfig.LastChecked = value;
         }
     }
   
