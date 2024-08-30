@@ -37,7 +37,7 @@
                     Width="150"
                     Height="100"
                     CornerRadius="10"
-                    Source="pack://application:,,,/Assets/window.png"
+                    Source="pack://application:,,,/Assets/screenshot-1.png"
                     Stretch="Fill" />
                 <ui:TextBlock
                     Grid.Column="1"
