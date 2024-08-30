@@ -25,7 +25,6 @@
 | Reset Zoom                     | `Ctrl + 0`                   |
 | Close Application              | `q`                   |
 
-## Configuration
 ## Contributing
 
 We welcome contributions from the community to help make EasyZoomer even better! Your input is valuable and can make a big difference.
