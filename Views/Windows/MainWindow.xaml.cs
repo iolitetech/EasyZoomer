@@ -15,6 +15,8 @@ namespace EasyZoomer.Views.Windows
         public MainWindowViewModel ViewModel { get; }
         public DashboardViewModel DashboardViewModel { get; }
 
+        private ZoomerWindow? _zoomerWindow;
+
         public MainWindow(
             MainWindowViewModel viewModel,
             DashboardViewModel dashboardViewModel,
@@ -26,7 +28,7 @@ namespace EasyZoomer.Views.Windows
             DashboardViewModel = dashboardViewModel;
             DataContext = this;
 
-            
+
             SystemThemeWatcher.Watch(this);
 
             InitializeComponent();
@@ -62,16 +64,22 @@ namespace EasyZoomer.Views.Windows
 
         public void OpenZoomerWindow(object sneder, HotkeyEventArgs e)
         {
-            ZoomerWindow zoomer = new ZoomerWindow(this.DashboardViewModel);
-            zoomer.Show();
+            if (_zoomerWindow != null && _zoomerWindow.IsVisible)
+            {
+                _zoomerWindow.Activate(); // Bring the existing window to focus
+                return;
+            }
+
+            _zoomerWindow = new ZoomerWindow(DashboardViewModel);
+            _zoomerWindow.Closed += (s, args) => _zoomerWindow = null; // Reset the reference when the window is closed
+            _zoomerWindow.Show();
         }
 
         public async ValueTask RegisterHotKey()
         {
             try
             {
-
-            HotkeyManager.Current.AddOrReplace("OpenZoomer", Key.O, ModifierKeys.Windows | ModifierKeys.Shift, OpenZoomerWindow);
+                HotkeyManager.Current.AddOrReplace("OpenZoomer", Key.O, ModifierKeys.Windows | ModifierKeys.Shift, OpenZoomerWindow);
             }
             catch
             {
@@ -95,6 +103,6 @@ namespace EasyZoomer.Views.Windows
             throw new NotImplementedException();
         }
 
-        
+
     }
 }
