@@ -21,7 +21,7 @@
   <ItemGroup>
     <None Remove="Assets\easyzoomerlogo.png" />
     <None Remove="Assets\easyzoomerlogo1024.png" />
-    <None Remove="Assets\window.png" />
+    <None Remove="Assets\screenshot-1.png" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="easyzoomer.ico" />
@@ -29,6 +29,6 @@
   <ItemGroup>
     <Resource Include="Assets\easyzoomerlogo.png" />
     <Resource Include="Assets\easyzoomerlogo1024.png" />
-    <Resource Include="Assets\window.png" />
+    <Resource Include="Assets\screenshot-1.png" />
   </ItemGroup>
 </Project>
