@@ -24,7 +24,6 @@ namespace EasyZoomer.Views.Windows
         {
             InitializeComponent();
             _viewModel = model;
-            _scale = model.ZoomScaleFactor;
             _circleRadius = model.CircleRadius;
 
             Loaded += Zoomer_Loaded;
@@ -98,7 +97,7 @@ namespace EasyZoomer.Views.Windows
 
         private void AdjustZoom(double change, System.Windows.Point position)
         {
-            _scale = Math.Max(1.0, _scale + change);
+            _scale = Math.Max(1.0, _scale + change * _viewModel.ZoomScaleFactor);
 
             CapturedImage.RenderTransformOrigin = new System.Windows.Point(
                 position.X / CapturedImage.ActualWidth,
