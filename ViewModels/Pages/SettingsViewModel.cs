@@ -15,7 +15,9 @@ namespace EasyZoomer.ViewModels.Pages
 
         private UpdateManager _updateManager;
         private UpdateInfo? _updateInfo;
-        private readonly IContentDialogService _contentDialogService;
+
+        [ObservableProperty]
+        private Visibility _isCheckUpdateVisible = Visibility.Visible;
 
         [ObservableProperty]
         private DateTime _lastChecked = AppConfig.LastChecked;
@@ -42,48 +44,12 @@ namespace EasyZoomer.ViewModels.Pages
         private async Task CheckForUpdateAsync()
         {
             IsProgressVisible = Visibility.Visible;
+            IsUpdateAvailable = Visibility.Hidden;
             _updateInfo = await _updateManager.CheckForUpdatesAsync();
 
-            
-
-            if (_updateInfo is null)
+            try
             {
-                Wpf.Ui.Controls.MessageBox msgBox = new()
-                {
-                    Title = "EasyZoomer Update",
-                    Content = "EasyZoomer is already up to date."
-                };
-                await msgBox.ShowDialogAsync();
-                
-            }
-            else
-            {
-                var release = _updateInfo.TargetFullRelease;
-                if(release.Version.ToString() is not null)
-                {
-                    ContentDialogResult result = await _contentDialogService.ShowSimpleDialogAsync(new()
-                    {
-                        Title = "EasyZoomer update",
-                        Content = $"New update available EasyZoomer - {release.Version.ToString()}, Do you want to update?",
-                        CloseButtonText = "Close",
-                        PrimaryButtonText = "Yes",
-                        SecondaryButtonText = "No"
-                    });
-
-                    switch (result)
-                    {
-                        case ContentDialogResult.Primary:
-                            await DownloadUpdate();
-                            InstallUpdate();
-                            break;
-
-                        case ContentDialogResult.Secondary:
-                        case ContentDialogResult.None:
-                            IsUpdateAvailable = Visibility.Visible;
-                            break;
-                    }
-                }
-                else
+                if (_updateInfo is null)
                 {
                     Wpf.Ui.Controls.MessageBox msgBox = new()
                     {
@@ -91,22 +57,71 @@ namespace EasyZoomer.ViewModels.Pages
                         Content = "EasyZoomer is already up to date."
                     };
                     await msgBox.ShowDialogAsync();
+
+                }
+                else
+                {
+                    var release = _updateInfo.TargetFullRelease;
+                    if (release.Version.ToString() is not null)
+                    {
+                        IsCheckUpdateVisible = Visibility.Hidden;
+                        IsUpdateAvailable = Visibility.Visible;
+
+                    }
+                    else
+                    {
+                        Wpf.Ui.Controls.MessageBox msgBox = new()
+                        {
+                            Title = "EasyZoomer Update",
+                            Content = "EasyZoomer is already up to date."
+                        };
+                        await msgBox.ShowDialogAsync();
+                    }
                 }
             }
-            IsProgressVisible = Visibility.Hidden;
-            LastChecked = DateTime.Now;
-            LastCheckedMessage = $"Last Checked {LastChecked}";
+            catch (Exception ex) 
+            {
+                Wpf.Ui.Controls.MessageBox msgBox = new()
+                {
+                    Title = "EasyZoomer Update",
+                    Content = ex.Message
+                };
+                await msgBox.ShowDialogAsync();
+            }
+            finally
+            {
+                IsProgressVisible = Visibility.Hidden;
+                LastChecked = DateTime.Now;
+                LastCheckedMessage = $"Last Checked {LastChecked}";
+            }
         }
 
         [RelayCommand]
         public async Task DownloadAndInstall()
         {
-            await DownloadUpdate();
-            InstallUpdate();
+            try
+            {
+                IsProgressVisible = Visibility.Visible;
+                await DownloadUpdate();
+                InstallUpdate();
+            }
+            catch (Exception ex)
+            {
+                Wpf.Ui.Controls.MessageBox msgBox = new()
+                {
+                    Title = "EasyZoomer Update",
+                    Content = ex.Message
+                };
+                await msgBox.ShowDialogAsync();
+            }
+            finally
+            {
+                IsProgressVisible = Visibility.Hidden;
+            }
+            
         }
-        public SettingsViewModel(IContentDialogService dialogService)
+        public SettingsViewModel()
         {
-            this._contentDialogService = dialogService;
 
             ThemeOptions = new ObservableCollection<ThemeOption>
             {
@@ -136,7 +151,8 @@ namespace EasyZoomer.ViewModels.Pages
 
         private string GetAssemblyVersion()
         {
-            return System.Reflection.Assembly.GetExecutingAssembly().GetName().Version?.ToString()
+            var assembly = System.Reflection.Assembly.GetExecutingAssembly().GetName();
+            return $"{assembly.Version.Major}.{assembly.Version.Minor}.{assembly.Version.Revision}"
                 ?? String.Empty;
         }
 
@@ -145,7 +161,7 @@ namespace EasyZoomer.ViewModels.Pages
             if (_updateInfo != null)
             {
                 await _updateManager.DownloadUpdatesAsync(_updateInfo);
-                IsUpdateAvailable = Visibility.Visible;
+                IsUpdateAvailable = Visibility.Collapsed;
             }
         }
         public void InstallUpdate()

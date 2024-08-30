@@ -90,22 +90,20 @@
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
-                <RowDefinition Height="*" />
-                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
-            <ui:CardExpander
+            <ui:CardControl
                 Grid.Row="0"
                 Grid.Column="0"
                 Margin="4"
                 Padding="20,10,20,10"
                 Icon="{ui:SymbolIcon DualScreenUpdate20}">
-                <ui:CardExpander.Header>
+                <ui:CardControl.Header>
                     <Grid>
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*" />
@@ -124,26 +122,30 @@
                             Foreground="{ui:ThemeResource TextFillColorSecondaryBrush}"
                             Text="{Binding ViewModel.LastCheckedMessage, Mode=TwoWay}" />
                         <ui:Button
-                            Grid.Row="0"
                             Grid.RowSpan="2"
                             Grid.Column="1"
                             Margin="0,0,16,0"
+                            Appearance="Primary"
                             Command="{Binding ViewModel.CheckForUpdateCommand}"
-                            Content="Check for update" />
+                            Content="Check for update"
+                            Visibility="{Binding ViewModel.IsCheckUpdateVisible}" />
+                        <ui:Button
+                            Grid.RowSpan="2"
+                            Grid.Column="1"
+                            Appearance="Success"
+                            Command="{Binding ViewModel.DownloadAndInstallCommand}"
+                            Content="Update now"
+                            Visibility="{Binding ViewModel.IsUpdateAvailable}" />
+
                         <ProgressBar
-                            Grid.Row="2"
+                            Grid.Row="3"
                             Grid.ColumnSpan="2"
                             IsIndeterminate="True"
                             Visibility="{Binding ViewModel.IsProgressVisible, Mode=TwoWay}" />
                     </Grid>
-                </ui:CardExpander.Header>
-            </ui:CardExpander>
-            <StackPanel
-                Grid.Row="2"
-                Grid.Column="0"
-                Visibility="{Binding ViewModel.IsUpdateAvailable, Mode=TwoWay}">
-                <ui:Button Content="Update now" />
-            </StackPanel>
+                </ui:CardControl.Header>
+            </ui:CardControl>
         </Grid>
+
     </StackPanel>
 </Page>
