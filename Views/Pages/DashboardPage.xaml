@@ -25,9 +25,13 @@
                 HorizontalAlignment="Left"
                 VerticalAlignment="Center">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="2*" />
                 </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
                 <ui:Image
                     Grid.Column="0"
                     Width="150"
@@ -43,6 +47,15 @@
                     Foreground="{ui:ThemeResource TextFillColorSecondaryBrush}"
                     Text="EasyZoomer offers a seamless zoom and pan experience for your entire screen. With intuitive controls and real-time adjustments, you can magnify and navigate with precision. Enjoy a sleek, user-friendly interface that makes focusing on details effortless."
                     TextWrapping="Wrap" />
+                <ui:HyperlinkButton
+                    Grid.Row="1"
+                    Grid.Column="1"
+                    Content="Github"
+                    NavigateUri="https://github.com/iolitetech/EasyZoomer">
+                    <ui:HyperlinkButton.Icon>
+                        <ui:SymbolIcon Symbol="Branch16" />
+                    </ui:HyperlinkButton.Icon>
+                </ui:HyperlinkButton>
             </Grid>
 
             <Button x:Name="zoomerOpenButton" Click="zoomerOpenButton_Click">Open Zoomer</Button>
@@ -276,8 +289,8 @@
                         <StackPanel>
                             <ui:TextBlock
                                 Margin="0"
+                                Appearance="Primary"
                                 FontTypography="BodyStrong"
-                                Foreground="{DynamicResource TextFillColorPrimaryBrush}"
                                 Text="Open the zoomer"
                                 TextWrapping="WrapWithOverflow" />
                         </StackPanel>
@@ -285,18 +298,13 @@
                     <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
                         <ui:Button
                             Margin="0,0,10,0"
-                            Background="{DynamicResource AccentTextFillColorTertiaryBrush}"
-                            Content="Win"
-                            Foreground="Black" />
+                            Appearance="Primary"
+                            Content="Win" />
                         <ui:Button
                             Margin="0,0,10,0"
-                            Background="{DynamicResource AccentTextFillColorTertiaryBrush}"
-                            Content="Shift"
-                            Foreground="Black" />
-                        <ui:Button
-                            Background="{DynamicResource AccentTextFillColorTertiaryBrush}"
-                            Content="o"
-                            Foreground="Black" />
+                            Appearance="Primary"
+                            Content="Shift" />
+                        <ui:Button Appearance="Primary" Content="o" />
                     </StackPanel>
 
                 </ui:CardControl>
@@ -323,13 +331,9 @@
                     <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
                         <ui:Button
                             Margin="0,0,10,0"
-                            Background="{DynamicResource AccentTextFillColorTertiaryBrush}"
-                            Content="Ctrl"
-                            Foreground="Black" />
-                        <ui:Button
-                            Background="{DynamicResource AccentTextFillColorTertiaryBrush}"
-                            Content="Mouse Wheel"
-                            Foreground="Black" />
+                            Appearance="Primary"
+                            Content="Ctrl" />
+                        <ui:Button Appearance="Primary" Content="Mouse Wheel" />
                     </StackPanel>
 
                 </ui:CardControl>
@@ -356,13 +360,13 @@
                     <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
                         <ui:Button
                             Margin="0,0,10,0"
+                            Appearance="Primary"
                             Background="{DynamicResource AccentTextFillColorTertiaryBrush}"
-                            Content="Ctrl"
-                            Foreground="Black" />
+                            Content="Ctrl" />
                         <ui:Button
+                            Appearance="Primary"
                             Background="{DynamicResource AccentTextFillColorTertiaryBrush}"
-                            Content="+ or -"
-                            Foreground="Black" />
+                            Content="+ or -" />
                     </StackPanel>
 
                 </ui:CardControl>
@@ -389,13 +393,13 @@
                     <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
                         <ui:Button
                             Margin="0,0,10,0"
+                            Appearance="Primary"
                             Background="{DynamicResource AccentTextFillColorTertiaryBrush}"
-                            Content="Shift"
-                            Foreground="Black" />
+                            Content="Shift" />
                         <ui:Button
+                            Appearance="Primary"
                             Background="{DynamicResource AccentTextFillColorTertiaryBrush}"
-                            Content="o"
-                            Foreground="Black" />
+                            Content="o" />
                     </StackPanel>
 
                 </ui:CardControl>
@@ -422,13 +426,13 @@
                     <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
                         <ui:Button
                             Margin="0,0,10,0"
+                            Appearance="Primary"
                             Background="{DynamicResource AccentTextFillColorTertiaryBrush}"
-                            Content="Shift"
-                            Foreground="Black" />
+                            Content="Shift" />
                         <ui:Button
+                            Appearance="Primary"
                             Background="{DynamicResource AccentTextFillColorTertiaryBrush}"
-                            Content="Mouse Wheel"
-                            Foreground="Black" />
+                            Content="Mouse Wheel" />
                     </StackPanel>
 
                 </ui:CardControl>
@@ -455,13 +459,13 @@
                     <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
                         <ui:Button
                             Margin="0,0,10,0"
+                            Appearance="Primary"
                             Background="{DynamicResource AccentTextFillColorTertiaryBrush}"
-                            Content="Ctrl"
-                            Foreground="Black" />
+                            Content="Ctrl" />
                         <ui:Button
+                            Appearance="Primary"
                             Background="{DynamicResource AccentTextFillColorTertiaryBrush}"
-                            Content="0"
-                            Foreground="Black" />
+                            Content="0" />
                     </StackPanel>
 
                 </ui:CardControl>
