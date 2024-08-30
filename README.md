@@ -1,4 +1,8 @@
 ﻿# EasyZoomer
+![EasyZoomerScreenshoot](https://github.com/iolitetech/EasyZoomer/blob/dev/Assets/screenshot-1.png)
+
+ ![GitHub Release](https://img.shields.io/github/v/release/iolitetech/EasyZoomer)
+![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/iolitetech/EasyZoomer/.github%2Fworkflows%2Fpublish.yml?branch=release)
 
 **EasyZoomer** is a powerful and user-friendly screen zooming application designed for enhanced focus and clarity. Whether you’re presenting, demonstrating, or just need a closer look, EasyZoomer provides a customizable zoom experience tailored to your needs.
 
