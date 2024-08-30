@@ -117,9 +117,5 @@ namespace EasyZoomer.ViewModels.Pages
             }
         }
 
-        private bool IsModifierKey(Key key)
-        {
-            return key == Key.LeftAlt || key == Key.RightAlt || key == Key.LeftCtrl || key == Key.RightCtrl || key == Key.LeftShift || key == Key.RightShift || key == Key.LWin || key == Key.RWin;
-        }
     }
 }
