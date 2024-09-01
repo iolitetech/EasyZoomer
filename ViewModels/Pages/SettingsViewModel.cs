@@ -152,7 +152,7 @@ namespace EasyZoomer.ViewModels.Pages
         private string GetAssemblyVersion()
         {
             var assembly = System.Reflection.Assembly.GetExecutingAssembly().GetName();
-            return $"{assembly.Version.Major}.{assembly.Version.Minor}.{assembly.Version.Revision}"
+            return $"{assembly.Version.Major}.{assembly.Version.Minor}.{assembly.Version.Build}"
                 ?? String.Empty;
         }
 
