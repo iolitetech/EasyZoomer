@@ -12,7 +12,6 @@
 - **Overlay Toggle/Flashlight Mode**: Show or hide the zoom overlay with `Shift + O`.
 - **Adjust Highlight Circle**: Change the size of the highlight circle around the cursor using `Shift + Mouse Wheel`.
 - **Customizable Settings**: Personalize zoom levels, overlay colors, and circle highlights.
-- 
 ## Keybindings
 
 | Action                         | Keybinding                   |
