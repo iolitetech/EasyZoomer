@@ -1,11 +1,7 @@
 ﻿using EasyZoomer.ViewModels.Pages;
-using System;
 using System.Drawing;
 using System.IO;
-using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -17,8 +13,8 @@ namespace EasyZoomer.Views.Windows
         private double _scale = 1.0;
         private double _circleRadius = 50;
         private bool _isOverlayVisible = false;
-        private DashboardViewModel _viewModel;
-        private System.Windows.Point _lastMousePosition;
+
+        private readonly DashboardViewModel _viewModel;
 
         public ZoomerWindow(DashboardViewModel model)
         {
@@ -114,8 +110,6 @@ namespace EasyZoomer.Views.Windows
             {
                 UpdateOverlayMask(mousePosition);
             }
-
-            _lastMousePosition = mousePosition;
         }
 
         private void UpdateOverlaySize()
