@@ -91,6 +91,8 @@ namespace EasyZoomer.ViewModels.Pages
                 color.A = (byte)(OverlayOpacity * 255); // Adjust the alpha channel based on opacity
                 OverlayColorBrush = new SolidColorBrush(color);
             }
+            else
+                OverlayColorBrush = new SolidColorBrush(Color.FromArgb(127,0,0,0));
         }
 
         private void UpdateBorderColor()
@@ -100,6 +102,9 @@ namespace EasyZoomer.ViewModels.Pages
                 color.A = (byte)(BorderColorOpacity * 255); // Adjust the alpha channel based on opacity
                 BorderColorBrush = new SolidColorBrush(color);
             }
+            else
+                BorderColorBrush = new SolidColorBrush(Color.FromArgb(255, 255, 0, 0));
+
         }
 
         // Utility method to convert hex color string to Color
