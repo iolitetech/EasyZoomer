@@ -3,9 +3,6 @@ using Wpf.Ui.Appearance;
 using Wpf.Ui.Controls;
 using Velopack;
 using Velopack.Sources;
-using System.Windows.Input;
-using Wpf.Ui;
-using Wpf.Ui.Extensions;
 
 namespace EasyZoomer.ViewModels.Pages
 {

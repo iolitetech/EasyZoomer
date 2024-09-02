@@ -67,6 +67,7 @@ namespace EasyZoomer.Views.Windows
             if (_zoomerWindow != null && _zoomerWindow.IsVisible)
             {
                 _zoomerWindow.Activate(); // Bring the existing window to focus
+                _zoomerWindow.Focus();
                 return;
             }
 
